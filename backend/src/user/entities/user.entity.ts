@@ -23,14 +23,14 @@ export class User {
   password: string;
 
   @Column()
-  refresh_token: string;
+  refreshToken: string;
 
   @Column({ default: 1 })
   status: number;
 
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @CreateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 }

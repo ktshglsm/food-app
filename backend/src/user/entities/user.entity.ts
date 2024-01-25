@@ -25,6 +25,9 @@ export class User {
   @Column({ nullable: true, default: null })
   refreshToken: string;
 
+  @Column({ nullable: true, default: null })
+  avatar: string;
+
   @Column({ default: 1 })
   status: number;
 

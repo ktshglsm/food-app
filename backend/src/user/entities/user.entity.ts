@@ -1,14 +1,16 @@
 import { Address } from 'src/address/entities/address.entity';
-import { Food } from 'src/food/entities/food.entity';
+import { Cart } from 'src/cart/entities/cart.entity';
+import { Feedback } from 'src/feedback/entities/feedback.entity';
 import { Order } from 'src/order/entities/order.entity';
 import { Payment } from 'src/payment/entities/payment.entity';
-import { Review } from 'src/review/entities/review.entity';
+import { Restaurant } from 'src/restaurant/entities/restaurant.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 
 @Entity()
@@ -43,30 +45,33 @@ export class User {
   @Column({ default: 1 })
   status: number;
 
+  @Column()
+  createdBy: string;
+
+  @Column()
+  updatedBy: string;
+
   @CreateDateColumn()
   createdAt: Date;
 
   @CreateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => Food, (food) => food.restaurant)
-  foods: Food[];
+  @OneToOne(() => Restaurant, (restaurant) => restaurant.user)
+  restaurant: Restaurant;
 
-  @OneToMany(() => Order, (order) => order.user)
-  ordersUser: Order[];
+  @OneToMany(() => Cart, (cart) => cart.user)
+  carts: Cart[];
 
-  @OneToMany(() => Order, (order) => order.restaurant)
-  ordersRestaurant: Order[];
+  @OneToMany(() => Address, (address) => address.user)
+  addresses: Address[];
 
-  @OneToMany(() => Review, (review) => review.user)
-  reviewsUser: Review[];
-
-  @OneToMany(() => Review, (review) => review.restaurant)
-  reviewsRestaurant: Review[];
+  @OneToMany(() => Feedback, (feedback) => feedback.user)
+  feedbacks: Feedback[];
 
   @OneToMany(() => Payment, (payment) => payment.user)
   payments: Payment[];
 
-  @OneToMany(() => Address, (address) => address.user)
-  addresses: Address[];
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 }

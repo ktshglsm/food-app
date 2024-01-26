@@ -1,30 +1,29 @@
+import { Food } from 'src/food/entities/food.entity';
 import { Order } from 'src/order/entities/order.entity';
-import { User } from 'src/user/entities/user.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
-  OneToOne,
 } from 'typeorm';
 
 @Entity()
-export class Payment {
+export class OrderDetail {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  quantity: number;
+
   @Column({ type: 'double' })
-  amount: number;
+  subtotalAmount: number;
 
-  @Column()
-  paymentMethod: string;
+  @Column({ type: 'double' })
+  deliveryAmount: number;
 
-  @Column()
-  status: string;
-
-  @Column()
-  paymentDate: Date;
+  @Column({ type: 'double' })
+  discount: number;
 
   @Column()
   createdBy: string;
@@ -38,9 +37,9 @@ export class Payment {
   @CreateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.payments)
-  user: User;
-
-  @OneToOne(() => Order, (order) => order.payment)
+  @ManyToOne(() => Order, (order) => order.orderDetails)
   order: Order;
+
+  @ManyToOne(() => Food, (food) => food.orderDetails)
+  food: Food;
 }

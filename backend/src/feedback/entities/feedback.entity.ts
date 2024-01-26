@@ -6,19 +6,24 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
-  OneToMany,
 } from 'typeorm';
 
 @Entity()
-export class Review {
+export class Feedback {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  rating: number;
+  rate: number;
 
   @Column()
   comment: string;
+
+  @Column()
+  createdBy: string;
+
+  @Column()
+  updatedBy: string;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -26,9 +31,9 @@ export class Review {
   @CreateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.reviewsUser)
+  @ManyToOne(() => User, (user) => user.feedbacks)
   user: User;
 
-  @ManyToOne(() => User, (user) => user.reviewsRestaurant)
-  restaurant: User;
+  @ManyToOne(() => Food, (food) => food.feedbacks)
+  food: Food;
 }

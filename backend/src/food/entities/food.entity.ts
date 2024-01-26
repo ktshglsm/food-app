@@ -1,6 +1,8 @@
+import { Cart } from 'src/cart/entities/cart.entity';
 import { Category } from 'src/category/entities/category.entity';
-import { Order } from 'src/order/entities/order.entity';
-import { User } from 'src/user/entities/user.entity';
+import { Feedback } from 'src/feedback/entities/feedback.entity';
+import { OrderDetail } from 'src/order-detail/entities/order-detail.entity';
+import { Restaurant } from 'src/restaurant/entities/restaurant.entity';
 import {
   Entity,
   Column,
@@ -18,11 +20,23 @@ export class Food {
   @Column()
   name: string;
 
+  @Column({ type: 'double' })
+  price: number;
+
+  @Column({ type: 'double' })
+  discount: number;
+
   @Column()
   description: string;
 
-  @Column({ type: 'double' })
-  price: number;
+  @Column()
+  status: string;
+
+  @Column()
+  createdBy: string;
+
+  @Column()
+  updatedBy: string;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -30,12 +44,18 @@ export class Food {
   @CreateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.foods)
-  restaurant: User;
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.foods)
+  restaurant: Restaurant;
 
   @ManyToOne(() => Category, (category) => category.foods)
   category: Category;
 
-  @OneToMany(() => Order, (order) => order.food)
-  orders: Order[];
+  @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.food)
+  orderDetails: OrderDetail[];
+
+  @OneToMany(() => Cart, (cart) => cart.food)
+  carts: Cart[];
+
+  @OneToMany(() => Feedback, (feedback) => feedback.food)
+  feedbacks: Feedback[];
 }

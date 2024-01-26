@@ -1,15 +1,17 @@
 import { DiscountCode } from 'src/discount-code/entities/discount-code.entity';
 import { Food } from 'src/food/entities/food.entity';
+import { User } from 'src/user/entities/user.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 
 @Entity()
-export class Category {
+export class Restaurant {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -18,6 +20,15 @@ export class Category {
 
   @Column()
   description: string;
+
+  @Column()
+  status: string;
+
+  @Column({ type: 'time' })
+  openingHours: string;
+
+  @Column({ type: 'time' })
+  closingHours: string;
 
   @Column()
   createdBy: string;
@@ -31,9 +42,12 @@ export class Category {
   @CreateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => Food, (food) => food.category)
+  @OneToMany(() => DiscountCode, (discountCode) => discountCode.restaurant)
+  discountCodes: DiscountCode[];
+
+  @OneToMany(() => Food, (food) => food.restaurant)
   foods: Food[];
 
-  @OneToMany(() => DiscountCode, (discountCode) => discountCode.category)
-  discountCodes: DiscountCode[];
+  @OneToOne(() => User, (user) => user.restaurant)
+  user: User;
 }

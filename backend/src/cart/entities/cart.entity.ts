@@ -1,4 +1,4 @@
-import { Order } from 'src/order/entities/order.entity';
+import { Food } from 'src/food/entities/food.entity';
 import { User } from 'src/user/entities/user.entity';
 import {
   Entity,
@@ -6,25 +6,15 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
-  OneToOne,
 } from 'typeorm';
 
 @Entity()
-export class Payment {
+export class Cart {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'double' })
-  amount: number;
-
   @Column()
-  paymentMethod: string;
-
-  @Column()
-  status: string;
-
-  @Column()
-  paymentDate: Date;
+  quantity: number;
 
   @Column()
   createdBy: string;
@@ -38,9 +28,9 @@ export class Payment {
   @CreateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.payments)
-  user: User;
+  @ManyToOne(() => Food, (food) => food.carts)
+  food: Food;
 
-  @OneToOne(() => Order, (order) => order.payment)
-  order: Order;
+  @ManyToOne(() => User, (user) => user.carts)
+  user: User;
 }

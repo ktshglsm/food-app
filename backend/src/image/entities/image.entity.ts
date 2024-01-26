@@ -1,32 +1,27 @@
-import { User } from 'src/user/entities/user.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  ManyToOne,
 } from 'typeorm';
 
 @Entity()
-export class Address {
+export class Image {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  detail: string;
+  ownerId: string;
 
   @Column()
-  latitude: number;
+  ownerType: string;
 
   @Column()
-  longitude: number;
+  url: string;
 
   @CreateDateColumn()
   createdAt: Date;
 
   @CreateDateColumn()
   updatedAt: Date;
-
-  @ManyToOne(() => User, (user) => user.addresses)
-  user: User;
 }

@@ -1,4 +1,4 @@
-import { Food } from 'src/food/entities/food.entity';
+import { OrderDetail } from 'src/order-detail/entities/order-detail.entity';
 import { Payment } from 'src/payment/entities/payment.entity';
 import { User } from 'src/user/entities/user.entity';
 import {
@@ -7,6 +7,8 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
+  OneToMany,
+  OneToOne,
 } from 'typeorm';
 
 @Entity()
@@ -14,11 +16,23 @@ export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ default: 1 })
-  Quantity: number;
+  @Column()
+  status: string;
+
+  @Column()
+  deliveryDate: Date;
 
   @Column({ type: 'double' })
-  SubtotalAmount: number;
+  totalAmount: number;
+
+  @Column({ type: 'double' })
+  totalDiscount: number;
+
+  @Column()
+  createdBy: string;
+
+  @Column()
+  updatedBy: string;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -26,15 +40,12 @@ export class Order {
   @CreateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.ordersUser)
+  @ManyToOne(() => User, (user) => user.orders)
   user: User;
 
-  @ManyToOne(() => User, (user) => user.ordersRestaurant)
-  restaurant: User;
+  @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.order)
+  orderDetails: OrderDetail[];
 
-  @ManyToOne(() => Payment, (payment) => payment.orders)
+  @OneToOne(() => Payment, (payment) => payment.order)
   payment: Payment;
-
-  @ManyToOne(() => Food, (food) => food.orders)
-  food: Food;
 }

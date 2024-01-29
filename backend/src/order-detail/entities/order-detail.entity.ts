@@ -1,11 +1,14 @@
 import { Food } from 'src/food/entities/food.entity';
 import { Order } from 'src/order/entities/order.entity';
+import { User } from 'src/user/entities/user.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
+  JoinColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -25,16 +28,18 @@ export class OrderDetail {
   @Column({ type: 'double' })
   discount: number;
 
-  @Column()
-  createdBy: string;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'createdBy' })
+  createdBy: User;
 
-  @Column()
-  updatedBy: string;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'updatedBy' })
+  updatedBy: User;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
   @ManyToOne(() => Order, (order) => order.orderDetails)

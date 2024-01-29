@@ -11,6 +11,9 @@ import {
   CreateDateColumn,
   OneToMany,
   OneToOne,
+  UpdateDateColumn,
+  JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 
 @Entity()
@@ -36,6 +39,9 @@ export class User {
   @Column()
   role: number;
 
+  @Column({ default: false })
+  isVerified: boolean;
+
   @Column({ nullable: true, default: null })
   refreshToken: string;
 
@@ -45,16 +51,18 @@ export class User {
   @Column({ default: 1 })
   status: number;
 
-  @Column()
-  createdBy: string;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'createdBy' })
+  createdBy: User;
 
-  @Column()
-  updatedBy: string;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'updatedBy' })
+  updatedBy: User;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
   @OneToOne(() => Restaurant, (restaurant) => restaurant.user)

@@ -3,6 +3,7 @@ import { Category } from 'src/category/entities/category.entity';
 import { Feedback } from 'src/feedback/entities/feedback.entity';
 import { OrderDetail } from 'src/order-detail/entities/order-detail.entity';
 import { Restaurant } from 'src/restaurant/entities/restaurant.entity';
+import { User } from 'src/user/entities/user.entity';
 import {
   Entity,
   Column,
@@ -10,6 +11,8 @@ import {
   CreateDateColumn,
   OneToMany,
   ManyToOne,
+  UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity()
@@ -32,16 +35,18 @@ export class Food {
   @Column()
   status: string;
 
-  @Column()
-  createdBy: string;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'createdBy' })
+  createdBy: User;
 
-  @Column()
-  updatedBy: string;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'updatedBy' })
+  updatedBy: User;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
   @ManyToOne(() => Restaurant, (restaurant) => restaurant.foods)

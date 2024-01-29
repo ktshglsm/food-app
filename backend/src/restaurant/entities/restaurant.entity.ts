@@ -8,6 +8,9 @@ import {
   CreateDateColumn,
   OneToMany,
   OneToOne,
+  JoinColumn,
+  ManyToOne,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -30,16 +33,18 @@ export class Restaurant {
   @Column({ type: 'time' })
   closingHours: string;
 
-  @Column()
-  createdBy: string;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'createdBy' })
+  createdBy: User;
 
-  @Column()
-  updatedBy: string;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'updatedBy' })
+  updatedBy: User;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
   @OneToMany(() => DiscountCode, (discountCode) => discountCode.restaurant)

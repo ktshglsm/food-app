@@ -32,10 +32,10 @@ export class DiscountCode {
   endTime: Date;
 
   @Column()
-  createdBy: string;
+  createdBy: number;
 
   @Column()
-  updatedBy: string;
+  updatedBy: number;
 
   @CreateDateColumn()
   createdAt: Date;

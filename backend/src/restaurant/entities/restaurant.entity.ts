@@ -8,6 +8,7 @@ import {
   CreateDateColumn,
   OneToMany,
   OneToOne,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity()
@@ -31,10 +32,10 @@ export class Restaurant {
   closingHours: string;
 
   @Column()
-  createdBy: string;
+  createdBy: number;
 
   @Column()
-  updatedBy: string;
+  updatedBy: number;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -49,5 +50,6 @@ export class Restaurant {
   foods: Food[];
 
   @OneToOne(() => User, (user) => user.restaurant)
+  @JoinColumn()
   user: User;
 }

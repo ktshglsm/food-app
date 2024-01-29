@@ -46,10 +46,10 @@ export class User {
   status: number;
 
   @Column()
-  createdBy: string;
+  createdBy: number;
 
   @Column()
-  updatedBy: string;
+  updatedBy: number;
 
   @CreateDateColumn()
   createdAt: Date;

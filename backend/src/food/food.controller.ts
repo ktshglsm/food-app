@@ -16,6 +16,7 @@ import { CreateFoodDto } from './dto/create-food.dto';
 import { Food } from './entities/food.entity';
 import { RestaurantGuard } from 'src/restaurant/restaurant.guard';
 import { UpdateFoodDto } from './dto/update-food.dto';
+
 @ApiBearerAuth()
 @ApiTags('Food')
 @Controller('food')

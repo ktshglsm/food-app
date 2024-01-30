@@ -9,38 +9,43 @@ import {
   OneToMany,
   OneToOne,
   JoinColumn,
+  ManyToOne,
+  UpdateDateColumn,
 } from 'typeorm';
+import { RestaurantStatus } from '../enums/status.enum';
 
 @Entity()
 export class Restaurant {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: 'Restaurant' })
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column()
-  status: string;
+  @Column({ default: RestaurantStatus.ACTIVATE })
+  status: RestaurantStatus;
 
-  @Column({ type: 'time' })
+  @Column({ nullable: true, type: 'time' })
   openingHours: string;
 
-  @Column({ type: 'time' })
+  @Column({ nullable: true, type: 'time' })
   closingHours: string;
 
-  @Column()
-  createdBy: number;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'createdBy' })
+  createdBy: User;
 
-  @Column()
-  updatedBy: number;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'updatedBy' })
+  updatedBy: User;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
   @OneToMany(() => DiscountCode, (discountCode) => discountCode.restaurant)

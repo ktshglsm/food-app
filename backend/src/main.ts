@@ -13,11 +13,13 @@ async function bootstrap() {
     .addTag('Auth')
     .addTag('User')
     .addTag('Food')
+    .addTag('Restaurant')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   await app.listen(PORT);
   console.log(`Server run at http://localhost:${PORT}`);
+  console.log(`Swagger run at http://localhost:${PORT}/api`);
 }
 bootstrap();

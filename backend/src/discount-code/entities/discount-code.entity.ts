@@ -1,11 +1,14 @@
 import { Category } from 'src/category/entities/category.entity';
 import { Restaurant } from 'src/restaurant/entities/restaurant.entity';
+import { User } from 'src/user/entities/user.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
+  JoinColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -31,16 +34,18 @@ export class DiscountCode {
   @Column({ type: 'datetime' })
   endTime: Date;
 
-  @Column()
-  createdBy: number;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'createdBy' })
+  createdBy: User;
 
-  @Column()
-  updatedBy: number;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'updatedBy' })
+  updatedBy: User;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
   @ManyToOne(() => Category, (category) => category.discountCodes)

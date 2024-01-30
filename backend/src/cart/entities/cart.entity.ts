@@ -6,6 +6,8 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
+  JoinColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -16,16 +18,18 @@ export class Cart {
   @Column()
   quantity: number;
 
-  @Column()
-  createdBy: number;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'createdBy' })
+  createdBy: User;
 
-  @Column()
-  updatedBy: number;
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'updatedBy' })
+  updatedBy: User;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
   @ManyToOne(() => Food, (food) => food.carts)

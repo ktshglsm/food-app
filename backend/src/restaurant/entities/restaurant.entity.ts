@@ -12,25 +12,26 @@ import {
   ManyToOne,
   UpdateDateColumn,
 } from 'typeorm';
+import { RestaurantStatus } from '../enums/status.enum';
 
 @Entity()
 export class Restaurant {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: 'Restaurant' })
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column()
-  status: string;
+  @Column({ default: RestaurantStatus.ACTIVATE })
+  status: RestaurantStatus;
 
-  @Column({ type: 'time' })
+  @Column({ nullable: true, type: 'time' })
   openingHours: string;
 
-  @Column({ type: 'time' })
+  @Column({ nullable: true, type: 'time' })
   closingHours: string;
 
   @ManyToOne(() => User, { nullable: true })
@@ -54,5 +55,6 @@ export class Restaurant {
   foods: Food[];
 
   @OneToOne(() => User, (user) => user.restaurant)
+  @JoinColumn()
   user: User;
 }

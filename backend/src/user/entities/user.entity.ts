@@ -15,6 +15,8 @@ import {
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
+import { UserRoles } from '../enums/roles.enum';
+import { UserStatus } from '../enums/status.enum';
 
 @Entity()
 export class User {
@@ -27,17 +29,17 @@ export class User {
   @Column()
   lastName: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()
   password: string;
 
-  @Column()
+  @Column({ unique: true })
   phone: string;
 
-  @Column()
-  role: number;
+  @Column({ default: UserRoles.USER })
+  role: UserRoles;
 
   @Column({ default: false })
   isVerified: boolean;
@@ -48,8 +50,8 @@ export class User {
   @Column({ nullable: true, default: null })
   avatar: string;
 
-  @Column({ default: 1 })
-  status: number;
+  @Column({ default: UserStatus.ACTIVE })
+  status: UserStatus;
 
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'createdBy' })

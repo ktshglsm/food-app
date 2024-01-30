@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
+  IsPhoneNumber,
   IsString,
   Matches,
   MaxLength,
@@ -12,7 +13,7 @@ import { UserRoles } from 'src/user/enums/roles.enum';
 
 export class RegisterUserDto {
   @ApiProperty()
-  @IsEmail()
+  @IsNotEmpty()
   firstName: string;
 
   @ApiProperty()
@@ -21,6 +22,9 @@ export class RegisterUserDto {
 
   @ApiProperty()
   @IsNotEmpty()
+  @IsPhoneNumber('VN', {
+    message: 'Please enter the correct Vietnamese phone number',
+  })
   phone: string;
 
   @ApiProperty()

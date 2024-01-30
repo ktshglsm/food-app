@@ -63,9 +63,9 @@ export class AuthService {
     });
 
     if (newUser.role === UserRoles.RESTAURANT) {
-      const newRestaurant = new Restaurant();
-      newRestaurant.user = newUser;
-      console.log('test', newRestaurant);
+      const newRestaurant = this.restaurantRepository.create({
+        user: newUser,
+      });
       await this.restaurantRepository.save(newRestaurant);
     }
 

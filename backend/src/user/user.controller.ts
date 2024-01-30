@@ -25,7 +25,7 @@ import { storageConfig } from 'helpers/config';
 import { extname } from 'path';
 @ApiBearerAuth()
 @ApiTags('User')
-@Controller('users')
+@Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
   @UseGuards(AuthGuard)

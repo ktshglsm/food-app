@@ -23,20 +23,20 @@ export class Food {
   @Column({ type: 'double' })
   price: number;
 
-  @Column({ type: 'double' })
+  @Column({ type: 'double', nullable: true })
   discount: number;
 
   @Column()
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   status: string;
 
   @Column()
-  createdBy: string;
+  createdBy: number;
 
   @Column()
-  updatedBy: string;
+  updatedBy: number;
 
   @CreateDateColumn()
   createdAt: Date;

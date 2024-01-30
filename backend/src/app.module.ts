@@ -31,6 +31,7 @@ import { DiscountCodeModule } from './discount-code/discount-code.module';
 import { FeedbackService } from './feedback/feedback.service';
 import { FeedbackController } from './feedback/feedback.controller';
 import { FeedbackModule } from './feedback/feedback.module';
+import { FoodService } from './food/food.service';
 
 @Module({
   imports: [
@@ -50,24 +51,7 @@ import { FeedbackModule } from './feedback/feedback.module';
     DiscountCodeModule,
     FeedbackModule,
   ],
-  controllers: [
-    AppController,
-    OrderController,
-    FoodController,
-    CategoryController,
-    PaymentController,
-    ImageController,
-    RestaurantController,
-    OrderDetailController,
-    FeedbackController,
-  ],
-  providers: [
-    AppService,
-    CategoryService,
-    PaymentService,
-    RestaurantService,
-    OrderDetailService,
-    FeedbackService,
-  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

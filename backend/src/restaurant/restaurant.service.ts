@@ -47,8 +47,8 @@ export class RestaurantService {
       }
       return await this.restaurantRepository.save({
         ...createRestaurantDto,
-        createdBy: userId,
-        updatedBy: userId,
+        createdBy: user,
+        updatedBy: user,
         user,
       });
     } catch (error) {

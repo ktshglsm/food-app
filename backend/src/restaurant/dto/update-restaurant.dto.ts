@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { RestaurantStatus } from '../enums/status.enum';
 
 export class UpdateRestaurantDto {
   @ApiProperty()
@@ -8,7 +9,7 @@ export class UpdateRestaurantDto {
   description: string;
 
   @ApiProperty()
-  status: string;
+  status: RestaurantStatus;
 
   @ApiProperty()
   openingHours: string;

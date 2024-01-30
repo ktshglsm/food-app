@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
+import { RestaurantStatus } from '../enums/status.enum';
 
 export class CreateRestaurantDto {
   @ApiProperty()
@@ -12,7 +13,7 @@ export class CreateRestaurantDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  status: string;
+  status: RestaurantStatus;
 
   @ApiProperty()
   @IsNotEmpty()

@@ -8,10 +8,11 @@ async function bootstrap() {
   const PORT = app.get(ConfigService).get<string>('PORT') ?? 5000;
   const config = new DocumentBuilder()
     .setTitle('Food App API')
-    .setDescription('List APIs')
+    .setDescription('List APIs Food App')
     .setVersion('1.0')
     .addTag('Auth')
     .addTag('User')
+    .addTag('Food')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);

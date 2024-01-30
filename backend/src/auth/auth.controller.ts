@@ -16,6 +16,7 @@ import { Request } from 'express';
 import { MailService } from 'src/mail/mail.service';
 import { ResendVerificationEmailDto } from './dto/resend-verification-email.dto';
 
+@UsePipes(ValidationPipe)
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
@@ -75,7 +76,6 @@ export class AuthController {
   @Post('login')
   @ApiResponse({ status: 201, description: 'Login successfully!' })
   @ApiResponse({ status: 401, description: 'Login fail!' })
-  @UsePipes(ValidationPipe)
   login(@Body() loginUserDto: LoginUserDto): Promise<User> {
     return this.authService.login(loginUserDto);
   }

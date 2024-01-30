@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Post,
-  UsePipes,
-  ValidationPipe,
-  Req,
-} from '@nestjs/common';
+import { Body, Controller, Post, Req } from '@nestjs/common';
 import { RegisterUserDto } from './dto/register.dto';
 import { AuthService } from './auth.service';
 import { User } from 'src/user/entities/user.entity';
@@ -16,7 +9,6 @@ import { Request } from 'express';
 import { MailService } from 'src/mail/mail.service';
 import { ResendVerificationEmailDto } from './dto/resend-verification-email.dto';
 
-@UsePipes(ValidationPipe)
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {

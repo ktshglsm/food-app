@@ -29,12 +29,15 @@ export class FoodService {
     const restaurant = await this.restaurantRepository.findOneBy({
       id: restaurantId,
     });
-    return await this.foodRepository.save({
+
+    const newFood = this.foodRepository.create({
+      createdBy: restaurant.user,
+      updatedBy: restaurant.user,
       ...createFoodDto,
-      createdBy: restaurantId,
-      updatedBy: restaurantId,
       restaurant,
     });
+
+    return await this.foodRepository.save(newFood);
   }
   async update(
     id: number,
